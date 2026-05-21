@@ -14,13 +14,12 @@ class ImageViewerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.imageviewer)
 
-        // Fixed: Assigned directly to the class property (removed the 'val' keyword)
         imageView = findViewById(R.id.imageViewer)
 
         val uriString = intent.getStringExtra("CAPTURED_IMAGE_URI")
         if (uriString != null) {
             val myImageUri = Uri.parse(uriString)
             imageView.setImageURI(myImageUri)
-        } // Fixed: Added the missing closing brace for the 'if' condition
+        }
     }
 }

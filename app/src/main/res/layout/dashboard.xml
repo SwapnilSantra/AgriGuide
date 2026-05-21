@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:backgroundTint="#2E7D32"
-                android:title="AgriGuide"
+                android:title="@+strings/app_name"
                 android:subtitle="Smart Farming Dashboard"
                 android:titleTextColor="@android:color/white"
                 android:subtitleTextColor="@android:color/white"

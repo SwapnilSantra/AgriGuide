@@ -64,25 +64,18 @@ class CameraViewActivity : AppCompatActivity() {
 
         cameraProviderFuture.addListener({
             try {
-                // Instantiates structural lifecycle bindings link
                 val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-                // Instantiates video streaming layout engine adapter
                 val preview = Preview.Builder().build().also {
                     it.setSurfaceProvider(previewView.surfaceProvider)
                 }
 
-                // Configures flash capture snapshot profiles
                 imageCapture = ImageCapture.Builder()
                     .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                     .build()
 
                 val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-                // Disconnect existing references before binding new streaming pipelines
                 cameraProvider.unbindAll()
-
-                // Bind pipeline directly to Activity Lifecycle
                 cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageCapture
                 )
@@ -116,18 +109,16 @@ class CameraViewActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
 
-                    // 2. Process local file data
                     val imageFile = outputPhotoFile
                     if (imageFile.exists()) {
                         Log.d("CameraX", "File Size: ${imageFile.length()} bytes")
                         Log.d("CameraX", "Absolute Path: ${imageFile.absolutePath}")
 
                         val bitmap = android.graphics.BitmapFactory.decodeFile(imageFile.absolutePath)
-                        // You can process your bitmap data right here if needed
-                    } // Fixed: Added missing closing brace for imageFile.exists()
+
+                    }
                 }
 
-                // Fixed: Added the critical 'override' keyword here
                 override fun onError(exception: ImageCaptureException) {
                     Log.e("CameraX", "Snapshot execution error: ${exception.message}", exception)
                     Toast.makeText(baseContext, "Failed to complete photo capture", Toast.LENGTH_SHORT).show()
