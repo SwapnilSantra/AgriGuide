@@ -47,9 +47,12 @@ android {
 
 dependencies {
     implementation("androidx.core:core-ktx:1.18.0")
-    implementation("androidx.camera:camera-camera2:1.4.0-beta01")
-    implementation("androidx.camera:camera-lifecycle:1.4.0-beta01")
-    implementation("androidx.camera:camera-view:1.4.0-beta01")
+    val cameraxVersion = "1.4.0-beta01"
+
+    implementation("androidx.camera:camera-core:$cameraxVersion")
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
     implementation("androidx.activity:activity-compose:1.13.0")
