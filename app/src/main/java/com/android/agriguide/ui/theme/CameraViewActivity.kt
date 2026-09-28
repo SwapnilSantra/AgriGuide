@@ -25,7 +25,6 @@ class CameraViewActivity : AppCompatActivity() {
     private lateinit var previewView: PreviewView
     private var imageCapture: ImageCapture? = null
 
-    // Handles user permission choice, safely initiating camera stream on access approval
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
