@@ -1,4 +1,4 @@
-package com.android.agriguide.ui.theme
+package com.android.agriguide
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

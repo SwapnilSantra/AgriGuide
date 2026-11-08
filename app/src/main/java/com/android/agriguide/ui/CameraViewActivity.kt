@@ -1,8 +1,9 @@
-package com.android.agriguide.ui.theme
+package com.android.agriguide.ui
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -113,7 +114,7 @@ class CameraViewActivity : AppCompatActivity() {
                         Log.d("CameraX", "File Size: ${imageFile.length()} bytes")
                         Log.d("CameraX", "Absolute Path: ${imageFile.absolutePath}")
 
-                        val bitmap = android.graphics.BitmapFactory.decodeFile(imageFile.absolutePath)
+                        val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
 
                     }
                 }

@@ -25,7 +25,7 @@
                     android:resource="@xml/file_paths" />
         </provider>
         <activity
-                android:name=".ui.theme.MainActivity"
+                android:name=".ui.MainActivity"
                 android:exported="true"
                 android:label="@string/app_name"
                 android:theme="@style/Theme.AgriGuide">
@@ -35,12 +35,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.theme.CameraViewActivity"
+        <activity android:name=".ui.CameraViewActivity"
         android:exported="true"
         android:label="@string/app_name"
         android:theme="@style/Theme.AgriGuide">
     </activity>
-        <activity android:name=".ui.theme.ImageViewerActivity"
+        <activity android:name=".ui.ImageViewerActivity"
                   android:exported="true"
                   android:label="@string/app_name"
                   android:theme="@style/Theme.AgriGuide">

@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">AgriGuide</string>
     <string name="back">Back</string>
+    <string name="temperature">Temperature: %1$d°C</string>
+    <string name="LST">Last Updated: "</string>
+    <string name="Null">--</string>
+    <string name="NOTA">N/A</string>
+    <string name="STGOOD">Overall Status:GOOD</string>
+    <string name="ERR">Error</string>
+    <string name="FAIL">Failed</string>
+    <string name="Celsius">°C</string>
+    <string name="Lightintensity">W/m²</string>
+    <string name="soilval">m³/m³</string>
 </resources>

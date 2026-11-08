@@ -1,4 +1,4 @@
-package com.android.agriguide.ui.theme
+package com.android.agriguide.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.agriguide.R
+import com.android.agriguide.Retrofithelper
+import com.android.agriguide.Secrets
+import com.android.agriguide.apiservice
 import kotlinx.coroutines.launch
-import kotlin.text.toInt
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity: AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
@@ -61,11 +65,12 @@ class MainActivity: AppCompatActivity() {
         }
     }
         private fun getweatherdata(){
-            val service = Retrofithelper.createRetrofitService(this@MainActivity,apiservice::class.java)
+            val service = Retrofithelper.createRetrofitService(this@MainActivity, apiservice::class.java)
+            val weatherkey = Secrets.WEATHER_API
             lifecycleScope.launch {
                 try {
                     val response = service.getWeather(
-                        Retrofithelper.WEATHER_URL + "v1/forecast?latitude=22.5626&longitude=88.363&hourly=temperature_2m,soil_moisture_9_to_27cm,relative_humidity_2m,shortwave_radiation&models=best_match&timezone=auto"
+                        Retrofithelper.WEATHER_URL + weatherkey
                     )
                     if (response.isSuccessful) {
                         val hr = response.body()?.hourly
@@ -89,7 +94,7 @@ class MainActivity: AppCompatActivity() {
                                 else -> "Saturated"
                             }
                         } ?: run {
-                            tvSoilStatus.text = "N/A"
+                            tvSoilStatus.text = "@string/NOTA"
                         }
                         hum?.let { h ->
                             tvHumidityStatus.text = when {
@@ -101,28 +106,28 @@ class MainActivity: AppCompatActivity() {
                                 else -> "Humidity not calculated"
                             }
                         }?: run {
-                                tvHumidityStatus.text = "N/A"
+                                tvHumidityStatus.text = "@string/NOTA"
                             }
 
 
-                        tvLastUpdated.text = "Last updated: ${hr?.time?.getOrNull(idx) ?: "--"}"
-                        tvOverallStatus.text = "Overall status: Good"
+                        tvLastUpdated.text = "@string/LST ${hr?.time?.getOrNull(idx) ?: "@string/Null"}"
+                        tvOverallStatus.text = "@string/STGOOD"
 
-                        tvTempValue.text = temp?.let { "$it ${units?.get("temperature_2m") ?: "°C"}" } ?: "N/A"
-                        tvHumidityValue.text = hum?.let { "${it.toInt()} %" } ?: "N/A"
-                        tvSoilValue.text = soil?.let { "%.2f m³/m³".format(it) } ?: "N/A"
-                        tvLightValue.text = light?.let { "${it.toInt()} W/m²" } ?: "N/A"
+                        tvTempValue.text = temp?.let { "$it ${units?.get("temperature_2m") ?: "@string/Celsius"}" } ?: "@string/NOTA"
+                        tvHumidityValue.text = hum?.let { "${it.toInt()} %" } ?: "@string/NOTA"
+                        tvSoilValue.text = soil?.let { "%.2f @string/soilval".format(it) } ?: "@string/NOTA"
+                        tvLightValue.text = light?.let { "${it.toInt()} @string/Lightintensity" } ?: "@string/NOTA"
                     } else {
-                        tvTempValue.text = "Error"
-                        tvSoilValue.text = "Error"
-                        tvHumidityValue.text = "Error"
-                        tvLightValue.text = "Error"
+                        tvTempValue.text = "@string/ERR"
+                        tvSoilValue.text = "@string/ERR"
+                        tvHumidityValue.text = "@string/ERR"
+                        tvLightValue.text = "@string/ERR"
                     }
                 } catch (e: Exception) {
-                    tvTempValue.text = "Failed"
-                    tvSoilValue.text = "Failed"
-                    tvHumidityValue.text = "Failed"
-                    tvLightValue.text = "Failed"
+                    tvTempValue.text = "@string/FAIL"
+                    tvSoilValue.text = "@string/FAIL"
+                    tvHumidityValue.text = "@string/FAIL"
+                    tvLightValue.text = "@string/FAIL"
                 }
                 finally {
                     swipeRefresh.isRefreshing = false
@@ -131,9 +136,9 @@ class MainActivity: AppCompatActivity() {
         }
     private fun currentHourIndex(times: List<String>?): Int {
         if (times.isNullOrEmpty()) return 0
-        val now = java.time.LocalDateTime.now()
+        val now = LocalDateTime.now()
             .withMinute(0).withSecond(0).withNano(0)
-            .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))
         val i = times.indexOf(now)
         return if (i >= 0) i else 0
     }

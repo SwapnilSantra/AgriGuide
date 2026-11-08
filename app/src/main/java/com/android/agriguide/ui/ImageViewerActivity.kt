@@ -1,10 +1,10 @@
-package com.android.agriguide.ui.theme
+package com.android.agriguide.ui
 
+import android.net.Uri
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.agriguide.R
-import android.net.Uri
-import android.widget.ImageView
 
 class ImageViewerActivity : AppCompatActivity() {
 
